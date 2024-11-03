@@ -8,13 +8,13 @@ import { GameModule } from './game/game.module';
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost', // O host será localhost pois o PostgreSQL está rodando no Docker
-      port: 5432,        // Porta 5432
-      username: 'admin',  // Definido no docker-compose
-      password: 'admin167',  // Definido no docker-compose
-      database: 'animalsim',  // Definido no docker-compose
+      host: 'localhost', 
+      port: 5432,
+      username: 'admin',  
+      password: 'admin167',  
+      database: 'animalsim',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: true,  // Sincroniza o banco de dados (apenas para desenvolvimento)
+      synchronize: true,
     }),
     GameModule
   ],
