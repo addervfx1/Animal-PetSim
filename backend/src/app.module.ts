@@ -11,9 +11,9 @@ import { LoggerMiddleware } from './middlewares/logger.middleware'; // importe o
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost', 
-      port: 5432,
+      port: 25060,
       username: 'admin',  
-      password: 'admin167',  
+      password: 'admin',  
       database: 'animalsim',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
