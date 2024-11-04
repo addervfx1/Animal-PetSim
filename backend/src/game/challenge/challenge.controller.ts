@@ -11,27 +11,27 @@ export class ChallengeController {
 
   @Get()
   async findAll(): Promise<Challenge[]> {
-    return this.challengeService.findAll();
+    return await this.challengeService.findAll();
   }
 
   @Get(':id')
   async findOne(@Param('id') id: number): Promise<Challenge> {
-    return this.challengeService.findOne(id);
+    return await this.challengeService.findOne(id);
   }
 
   @Post()
   async create(@Body() createChallengeDto: CreateChallengeDto): Promise<Challenge> {
-    return this.challengeService.create(createChallengeDto);
+    return await this.challengeService.create(createChallengeDto);
   }
 
   @Put(':id')
   async update(@Param('id') id: number, @Body() updateChallengeDto: UpdateChallengeDto): Promise<Challenge> {
-    return this.challengeService.update(id, updateChallengeDto);
+    return await this.challengeService.update(id, updateChallengeDto);
   }
 
 
   @Delete(':id')
   async remove(@Param('id') id: number): Promise<void> {
-    return this.challengeService.remove(id);
+    return await this.challengeService.remove(id);
   }
 }

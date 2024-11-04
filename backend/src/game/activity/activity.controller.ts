@@ -12,27 +12,27 @@ export class ActivityController {
 
   @Get()
   async findAll(): Promise<Activity[]> {
-    return this.activityService.findAll();
+    return await this.activityService.findAll();
   }
 
   @Get(':id')
   async findOne(@Param('id') id: number): Promise<Activity> {
-    return this.activityService.findOne(id);
+    return await this.activityService.findOne(id);
   }
 
   @Post()
   async create(@Body() createActivityDto: CreateActivityDto): Promise<Activity> {
-    return this.activityService.create(createActivityDto);
+    return await this.activityService.create(createActivityDto);
   }
 
   @Put(':id')
   async update(@Param('id') id: number, @Body() updateActivityDto: UpdateActivityDto): Promise<Activity> {
-    return this.activityService.update(id, updateActivityDto);
+    return await this.activityService.update(id, updateActivityDto);
   }
 
 
   @Delete(':id')
   async remove(@Param('id') id: number): Promise<void> {
-    return this.activityService.remove(id);
+    return await this.activityService.remove(id);
   }
 }

@@ -12,27 +12,27 @@ export class AnimalController {
 
   @Get()
   async findAll(): Promise<Animal[]> {
-    return this.animalService.findAll();
+    return await this.animalService.findAll();
   }
 
   @Get(':id')
   async findOne(@Param('id') id: number): Promise<Animal> {
-    return this.animalService.findOne(id);
+    return await this.animalService.findOne(id);
   }
 
   @Post()
   async create(@Body() createAnimalDto: CreateAnimalDto): Promise<Animal> {
-    return this.animalService.create(createAnimalDto);
+    return await this.animalService.create(createAnimalDto);
   }
 
   @Put(':id')
   async update(@Param('id') id: number, @Body() updateAnimalDto: UpdateAnimalDto): Promise<Animal> {
-    return this.animalService.update(id, updateAnimalDto);
+    return await this.animalService.update(id, updateAnimalDto);
   }
 
 
   @Delete(':id')
   async remove(@Param('id') id: number): Promise<void> {
-    return this.animalService.remove(id);
+    return await this.animalService.remove(id);
   }
 }
