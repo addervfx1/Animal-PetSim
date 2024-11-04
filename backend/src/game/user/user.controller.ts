@@ -3,6 +3,7 @@ import { User } from './entities/user.entity';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user-dto';
 import { UpdateUserDto } from './dto/update-user-dto';
+import { LoginDto } from './dto/login-dto';
 
 
 @Controller('users')
@@ -19,9 +20,14 @@ export class UserController {
     return await this.userService.findOne(id);
   }
 
-  @Post()
-  async create(@Body() createUserDto: CreateUserDto): Promise<User> {
+  @Post('/register')
+  async create(@Body() createUserDto: CreateUserDto): Promise<{accessToken: string, refreshToken: string}> {
     return await this.userService.create(createUserDto);
+  }
+
+  @Post('/login')
+  async login(@Body() loginDto: LoginDto): Promise<{accessToken: string, refreshToken: string}> {
+    return await this.userService.login(loginDto);
   }
 
   @Put(':id')
