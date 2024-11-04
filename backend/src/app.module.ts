@@ -1,8 +1,10 @@
-import { Module } from '@nestjs/common';
+// src/app.module.ts
+import { Module, MiddlewareConsumer, RequestMethod } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { GameModule } from './game/game.module';
+import { LoggerMiddleware } from './middlewares/logger.middleware'; // importe o middleware
 
 @Module({
   imports: [
@@ -18,5 +20,13 @@ import { GameModule } from './game/game.module';
     }),
     GameModule
   ],
+  controllers: [AppController],
+  providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(LoggerMiddleware).forRoutes({
+      path: '*', method: RequestMethod.ALL
+    });
+  }
+}

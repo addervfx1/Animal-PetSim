@@ -13,23 +13,23 @@ export class ChallengeRepositoryService {
   ) {}
 
   async findAll(): Promise<Challenge[]> {
-    return this.challengeRepository.find();
+    return await this.challengeRepository.find();
   }
 
   async findOne(id: number): Promise<Challenge> {
-    return this.challengeRepository.findOne({ where: { id } });
+    return await this.challengeRepository.findOne({ where: { id } });
   }
 
   async create(challenge: CreateChallengeDto): Promise<Challenge> {
-    return this.challengeRepository.save(challenge);
+    return await this.challengeRepository.save(challenge);
   }
 
   async update(id: number, challenge: UpdateChallengeDto): Promise<Challenge> {
-    await this.challengeRepository.update(id, challenge);
+    await await this.challengeRepository.update(id, challenge);
     return this.findOne(id);
   }
 
   async remove(id: number): Promise<void> {
-    await this.challengeRepository.delete(id);
+    await await this.challengeRepository.delete(id);
   }
 }

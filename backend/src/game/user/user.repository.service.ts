@@ -13,23 +13,23 @@ export class UserRepositoryService {
   ) {}
 
   async findAll(): Promise<User[]> {
-    return this.userRepository.find();
+    return await this.userRepository.find();
   }
 
   async findOne(id: number): Promise<User> {
-    return this.userRepository.findOne({ where: { id } });
+    return await this.userRepository.findOne({ where: { id } });
   }
 
   async create(user: CreateUserDto): Promise<User> {
-    return this.userRepository.save(user);
+    return await this.userRepository.save(user);
   }
 
   async update(id: number, user: UpdateUserDto): Promise<User> {
-    await this.userRepository.update(id, user);
+    await await this.userRepository.update(id, user);
     return this.findOne(id);
   }
 
   async remove(id: number): Promise<void> {
-    await this.userRepository.delete(id);
+    await await this.userRepository.delete(id);
   }
 }

@@ -14,23 +14,23 @@ export class AnimalRepositoryService {
   ) {}
 
   async findAll(): Promise<Animal[]> {
-    return this.animalRepository.find();
+    return await this.animalRepository.find();
   }
 
   async findOne(id: number): Promise<Animal> {
-    return this.animalRepository.findOne({ where: { id } });
+    return await this.animalRepository.findOne({ where: { id } });
   }
 
   async create(animal: CreateAnimalDto): Promise<Animal> {
-    return this.animalRepository.save(animal);
+    return await this.animalRepository.save(animal);
   }
 
   async update(id: number, animal: UpdateAnimalDto): Promise<Animal> {
-    await this.animalRepository.update(id, animal);
+    await await this.animalRepository.update(id, animal);
     return this.findOne(id);
   }
 
   async remove(id: number): Promise<void> {
-    await this.animalRepository.delete(id);
+    await await this.animalRepository.delete(id);
   }
 }

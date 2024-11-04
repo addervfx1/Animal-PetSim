@@ -9,22 +9,22 @@ export class ActivityService {
   constructor(private readonly activityRepositoryService: ActivityRepositoryService) {}
 
   async findAll(): Promise<Activity[]> {
-    return this.activityRepositoryService.findAll();
+    return await this.activityRepositoryService.findAll();
   }
 
   async findOne(id: number): Promise<Activity> {
-    return this.activityRepositoryService.findOne(id);
+    return await this.activityRepositoryService.findOne(id);
   }
 
   async create(activity: CreateActivityDto): Promise<Activity> {
-    return this.activityRepositoryService.create(activity);
+    return await this.activityRepositoryService.create(activity);
   }
 
   async update(id: number, activity: UpdateActivityDto): Promise<Activity> {
-    return this.activityRepositoryService.update(id, activity);
+    return await this.activityRepositoryService.update(id, activity);
   }
 
   async remove(id: number): Promise<void> {
-    return this.activityRepositoryService.remove(id);
+    return await this.activityRepositoryService.remove(id);
   }
 }

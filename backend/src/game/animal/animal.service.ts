@@ -9,22 +9,22 @@ export class AnimalService {
   constructor(private readonly animalRepositoryService: AnimalRepositoryService) {}
 
   async findAll(): Promise<Animal[]> {
-    return this.animalRepositoryService.findAll();
+    return await this.animalRepositoryService.findAll();
   }
 
   async findOne(id: number): Promise<Animal> {
-    return this.animalRepositoryService.findOne(id);
+    return await this.animalRepositoryService.findOne(id);
   }
 
   async create(animal: CreateAnimalDto): Promise<Animal> {
-    return this.animalRepositoryService.create(animal);
+    return await this.animalRepositoryService.create(animal);
   }
 
   async update(id: number, animal: UpdateAnimalDto): Promise<Animal> {
-    return this.animalRepositoryService.update(id, animal);
+    return await this.animalRepositoryService.update(id, animal);
   }
 
   async remove(id: number): Promise<void> {
-    return this.animalRepositoryService.remove(id);
+    return await this.animalRepositoryService.remove(id);
   }
 }

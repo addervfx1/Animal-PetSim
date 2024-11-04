@@ -9,22 +9,22 @@ export class ChallengeService {
   constructor(private readonly challengeRepositoryService: ChallengeRepositoryService) {}
 
   async findAll(): Promise<Challenge[]> {
-    return this.challengeRepositoryService.findAll();
+    return await this.challengeRepositoryService.findAll();
   }
 
   async findOne(id: number): Promise<Challenge> {
-    return this.challengeRepositoryService.findOne(id);
+    return await this.challengeRepositoryService.findOne(id);
   }
 
   async create(challenge: CreateChallengeDto): Promise<Challenge> {
-    return this.challengeRepositoryService.create(challenge);
+    return await this.challengeRepositoryService.create(challenge);
   }
 
   async update(id: number, challenge: UpdateChallengeDto): Promise<Challenge> {
-    return this.challengeRepositoryService.update(id, challenge);
+    return await this.challengeRepositoryService.update(id, challenge);
   }
 
   async remove(id: number): Promise<void> {
-    return this.challengeRepositoryService.remove(id);
+    return await this.challengeRepositoryService.remove(id);
   }
 }

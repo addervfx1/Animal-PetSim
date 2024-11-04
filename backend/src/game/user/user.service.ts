@@ -9,22 +9,22 @@ export class UserService {
   constructor(private readonly userRepositoryService: UserRepositoryService) {}
 
   async findAll(): Promise<User[]> {
-    return this.userRepositoryService.findAll();
+    return await this.userRepositoryService.findAll();
   }
 
   async findOne(id: number): Promise<User> {
-    return this.userRepositoryService.findOne(id);
+    return await this.userRepositoryService.findOne(id);
   }
 
   async create(user: CreateUserDto): Promise<User> {
-    return this.userRepositoryService.create(user);
+    return await this.userRepositoryService.create(user);
   }
 
   async update(id: number, user: UpdateUserDto): Promise<User> {
-    return this.userRepositoryService.update(id, user);
+    return await this.userRepositoryService.update(id, user);
   }
 
   async remove(id: number): Promise<void> {
-    return this.userRepositoryService.remove(id);
+    return await this.userRepositoryService.remove(id);
   }
 }
