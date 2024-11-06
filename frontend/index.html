@@ -68,13 +68,62 @@
         #closeDialog:hover {
             background-color: #0056b3;
         }
+
+        .loginText {
+            color: white;
+        }
     </style>
 </head>
 <body>
+    <div id="loginScreen">
+        <h2 class="loginText">Login</h2>
+        <input type="text" id="email" placeholder="Email"><br><br>
+        <input type="password" id="password" placeholder="Password"><br><br>
+        <button id="loginButton">Entrar</button>
+    </div>
+
     <div id="loading">
         <div class="loader"></div>
     </div>
 
-    <script type="module" src="js/main.js"></script>
+    <script type="module">
+        const accessToken = localStorage.getItem("accessToken");
+        const refreshToken = localStorage.getItem("refreshToken");
+
+        if(accessToken | refreshToken)
+            document.getElementById('loginScreen').style.display = 'none';
+
+        document.getElementById('loginButton').addEventListener('click', async function() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                const loginResult = await fetch('http://localhost:3000/users/login', {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    method: "POST",
+                    body: JSON.stringify({ email, password }),
+                }).then(res => res.json());
+                
+                if (loginResult.accessToken && loginResult.refreshToken) {
+                    localStorage.setItem("accessToken", loginResult.accessToken);
+                    localStorage.setItem("refreshToken", loginResult.refreshToken);
+                    document.getElementById('loginScreen').style.display = 'none';
+                    startGame();
+                } else {
+                    alert('Credenciais inválidas!');
+                }
+            } catch (e) {
+                alert(`Ocorreu um erro inesperado, tente novamente mais tarde!`);
+            }
+        });
+
+        function startGame() {
+            import('./js/main.js').then(module => {
+                module.startPhaserGame();
+            });
+        }
+    </script>
 </body>
 </html>
