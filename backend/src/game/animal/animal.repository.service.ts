@@ -20,6 +20,15 @@ export class AnimalRepositoryService {
   async findOne(id: number): Promise<Animal> {
     return await this.animalRepository.findOne({ where: { id } });
   }
+  
+  async findOneByUser(userId: number): Promise<Animal | null> {
+    const animal = await this.animalRepository.findOne({
+        where: { user: { id: userId } },
+        relations: ['user'],
+    });
+
+    return animal || null;
+}
 
   async create(animal: CreateAnimalDto): Promise<Animal> {
     return await this.animalRepository.save(animal);

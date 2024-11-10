@@ -15,6 +15,10 @@ export class AnimalService {
   async findOne(id: number): Promise<Animal> {
     return await this.animalRepositoryService.findOne(id);
   }
+  
+  async findOneByUser(id: number): Promise<Animal> {
+    return await this.animalRepositoryService.findOneByUser(id);
+  }
 
   async create(animal: CreateAnimalDto): Promise<Animal> {
     return await this.animalRepositoryService.create(animal);
