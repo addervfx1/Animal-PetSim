@@ -44,7 +44,7 @@ export class UserService {
     return {accessToken, refreshToken};
   }
   
-  async login(loginDto: LoginDto): Promise<{accessToken: string, refreshToken: string}> {
+  async login(loginDto: LoginDto): Promise<{accessToken: string, refreshToken: string, userId: number}> {
     const user = await this.userRepositoryService.findByEmail(loginDto.email);
 
     if(!user)
@@ -52,10 +52,9 @@ export class UserService {
 
     if(!SecurityHelper.IsHashVerified(user.password, loginDto.password))
         throw new UnauthorizedException(HttpStatus.FORBIDDEN);
-
     const [accessToken, refreshToken] = await this.userTokenGateway.generateTokens(user);
     
-    return {accessToken, refreshToken};
+    return {accessToken, refreshToken, userId: user.id};
   }
 
   async update(id: number, user: UpdateUserDto): Promise<User> {

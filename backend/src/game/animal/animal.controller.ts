@@ -14,12 +14,17 @@ export class AnimalController {
   async findAll(): Promise<Animal[]> {
     return await this.animalService.findAll();
   }
-
+  
+  @Get('by-user/:id')
+  async findOneByUser(@Param('id') id: number): Promise<Animal> {
+  return await this.animalService.findOneByUser(id);
+}
+  
   @Get(':id')
   async findOne(@Param('id') id: number): Promise<Animal> {
     return await this.animalService.findOne(id);
   }
-
+  
   @Post()
   async create(@Body() createAnimalDto: CreateAnimalDto): Promise<Animal> {
     return await this.animalService.create(createAnimalDto);
