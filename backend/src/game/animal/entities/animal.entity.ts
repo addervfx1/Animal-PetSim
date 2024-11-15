@@ -26,6 +26,9 @@ export class Animal {
   @Column({ type: 'varchar', length: 255 })
   health: string;
 
+  @Column({ type: 'int' })
+  userId: number;
+
   @ManyToOne(() => User, (user) => user.animals)
   user: User;
 }

@@ -89,6 +89,7 @@
     <script type="module">
         const accessToken = localStorage.getItem("accessToken");
         const refreshToken = localStorage.getItem("refreshToken");
+        const userId = localStorage.getItem("userId");
 
         if(accessToken | refreshToken)
             document.getElementById('loginScreen').style.display = 'none';
@@ -109,6 +110,7 @@
                 if (loginResult.accessToken && loginResult.refreshToken) {
                     localStorage.setItem("accessToken", loginResult.accessToken);
                     localStorage.setItem("refreshToken", loginResult.refreshToken);
+                    localStorage.setItem("userId", loginResult.userId);
                     document.getElementById('loginScreen').style.display = 'none';
                     startGame();
                 } else {
@@ -121,7 +123,6 @@
 
         function startGame() {
             import('./js/main.js').then(module => {
-                module.startPhaserGame();
             });
         }
     </script>
