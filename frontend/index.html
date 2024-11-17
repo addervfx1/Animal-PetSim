@@ -253,7 +253,7 @@
         const accessToken = localStorage.getItem("accessToken");
         const refreshToken = localStorage.getItem("refreshToken");
 
-        if (accessToken || refreshToken)
+        if (!accessToken || !refreshToken)
             document.getElementById('loginScreen').style.display = 'none';
 
         document.getElementById('loginButton').addEventListener('click', async function() {
