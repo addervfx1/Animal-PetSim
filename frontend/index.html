@@ -261,7 +261,7 @@
             const password = document.getElementById('password').value;
 
             try {
-                const loginResult = await fetch(`${process.env.API_URL}/users/login`, {
+                const loginResult = await fetch('http://localhost:3000/users/login', {
                     headers: {
                         "Content-Type": "application/json",
                     },
