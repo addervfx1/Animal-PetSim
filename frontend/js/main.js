@@ -121,30 +121,12 @@ class MainMenu extends Phaser.Scene {
         loadingScreen.style.display = 'none'; 
     }
 
-    resizeElements() {
-        const { width, height } = this.sys.game.config;
-        const borderSize = 160;
-        
-        
-        this.animal = this.add.image(width / 2, height / 2 - 50, 'animal').setScale(0.5);
-        this.createBorder(width / 2, height / 2 - 50, borderSize, 0xffffff);
-        
-        const scaleFactor = (borderSize - 20) / Math.max(this.animal.width, this.animal.height);
-        this.animal.setScale(scaleFactor);
-
-        
-        const iconSpacing = 100;
-        this.foodButton = this.add.image(width / 2 - iconSpacing, height - 50, 'foodIcon').setInteractive();
-        this.foodButton.on('pointerdown', () => this.feedAnimal());
-
-        this.bathButton = this.add.image(width / 2, height - 50, 'bathIcon').setInteractive();
-        this.bathButton.on('pointerdown', () => this.batheAnimal());
-
-        this.toyButton = this.add.image(width / 2 + iconSpacing, height - 50, 'toyIcon').setInteractive();
-        this.toyButton.on('pointerdown', () => this.playWithAnimal());
-
-        
-        this.healthText.setPosition(10, 10);
+    resize() {
+        this.background.setSize(this.scale.width, this.scale.height);
+        this.titleText.setPosition(this.cameras.main.centerX, this.cameras.main.centerY - 100);
+        this.startButton.setPosition(this.cameras.main.centerX, this.cameras.main.centerY + 50);
+        this.buttonText.setPosition(this.cameras.main.centerX, this.cameras.main.centerY + 50);
+        this.titleText.setWordWrapWidth(this.scale.width - 40);
     }
 
     
@@ -416,8 +398,8 @@ class GameScene extends Phaser.Scene {
             this.load.image('animal', 'assets/labrador.png');
 
         }
-      this.load.image('foodIcon', 'caminho/para/icone_comida.png');    
-      this.load.image('bathIcon', 'caminho/para/icone_banho.png');     
+      this.load.image('foodIcon', 'assets/prato.png');    
+      this.load.image('bathIcon', 'assets/banho.png');     
       this.load.image('toyIcon', 'caminho/para/icone_brinquedo.png');   
     }
   
@@ -443,16 +425,22 @@ class GameScene extends Phaser.Scene {
         const iconSpacing = 100;
 
         
-        this.foodButton = this.add.image(width / 2 - iconSpacing, height - 50, 'foodIcon').setInteractive();
-        this.foodButton.on('pointerdown', () => this.feedAnimal());
+        this.foodButton = this.add.image(width / 2 - iconSpacing, height - 50, 'foodIcon').setInteractive().setScale(0.2);;
+        this.foodButton.on('pointerdown', () => {
+        this.openTab('Alimentação', 'O animal está sendo alimentado. Certifique-se de manter a dieta equilibrada.');
+});
 
-        this.bathButton = this.add.image(width / 2, height - 50, 'bathIcon').setInteractive();
-        this.bathButton.on('pointerdown', () => this.batheAnimal());
+        this.bathButton = this.add.image(width / 2, height - 50, 'bathIcon').setInteractive().setScale(0.2);
+        this.bathButton.on('pointerdown', () => {
+        this.openTab('Higiene', 'O banho do animal está sendo preparado. Lembre-se de usar produtos adequados.');
+});
 
         this.toyButton = this.add.image(width / 2 + iconSpacing, height - 50, 'toyIcon').setInteractive();
-        this.toyButton.on('pointerdown', () => this.playWithAnimal());
+        this.toyButton.on('pointerdown', () => {
+        this.openTab('Brincadeiras', 'O animal adora brincar! Escolha um brinquedo para mantê-lo feliz.');
+});
+    
 
-        
         this.healthText = this.add.text(10, 10, '', { 
             font: '16px Arial', 
             fill: '#ffffff',
@@ -460,6 +448,12 @@ class GameScene extends Phaser.Scene {
             strokeThickness: 2  
         });
         this.updateHealthStatus();
+    }
+
+    openTab(title, content) {
+        document.getElementById('tabTitle').innerText = title;
+        document.getElementById('tabContent').innerText = content;
+        document.getElementById('infoTab').style.display = 'block';
     }
 
     resizeElements() {
