@@ -245,49 +245,85 @@
         <button id="loginButton">Entrar</button>
     </div>
 
+        <div id="infoTab" style="
+        display: none;
+        position: absolute;
+        top: 10%;
+        left: 10%;
+        width: 80%;
+        height: 80%;
+        background-color: white;
+        border-radius: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        overflow: auto;
+        z-index: 1000;
+        padding: 20px;">
+        <h2 id="tabTitle">Informações</h2>
+        <p id="tabContent">Aqui vão os detalhes sobre o animal.</p>
+        <button onclick="closeTab()" style="
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 10px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;">Fechar</button>
+    </div>
+
     <div id="loading">
         <div class="loader"></div>
     </div>
 
     <script type="module">
-        const accessToken = localStorage.getItem("accessToken");
-        const refreshToken = localStorage.getItem("refreshToken");
-
-        if (!accessToken || !refreshToken)
-            document.getElementById('loginScreen').style.display = 'none';
-
-        document.getElementById('loginButton').addEventListener('click', async function() {
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-
-            try {
-                const loginResult = await fetch('http://localhost:3000/users/login', {
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    method: "POST",
-                    body: JSON.stringify({ email, password }),
-                }).then(res => res.json());
-
-                if (loginResult.accessToken && loginResult.refreshToken) {
-                    localStorage.setItem("accessToken", loginResult.accessToken);
-                    localStorage.setItem("refreshToken", loginResult.refreshToken);
-                    document.getElementById('loginScreen').style.display = 'none';
-                    startGame();
-                } else {
-                    alert('Credenciais inválidas!');
+        document.addEventListener("DOMContentLoaded", function () {
+            const accessToken = localStorage.getItem("accessToken");
+            const refreshToken = localStorage.getItem("refreshToken");
+    
+            if (!accessToken || !refreshToken)
+                document.getElementById('loginScreen').style.display = 'none';
+    
+            document.getElementById('loginButton').addEventListener('click', async function () {
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+    
+                try {
+                    const loginResult = await fetch('http://localhost:3000/users/login', {
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        method: "POST",
+                        body: JSON.stringify({ email, password }),
+                    }).then(res => res.json());
+    
+                    if (loginResult.accessToken && loginResult.refreshToken) {
+                        localStorage.setItem("accessToken", loginResult.accessToken);
+                        localStorage.setItem("refreshToken", loginResult.refreshToken);
+                        document.getElementById('loginScreen').style.display = 'none';
+                        startGame();
+                    } else {
+                        alert('Credenciais inválidas!');
+                    }
+                } catch (e) {
+                    alert(`Ocorreu um erro inesperado, tente novamente mais tarde!`);
                 }
-            } catch (e) {
-                alert(`Ocorreu um erro inesperado, tente novamente mais tarde!`);
-            }
-        });
-
-        function startGame() {
-            import('./js/main.js').then(module => {
-                //module.startPhaserGame();
             });
-        }
+    
+            function closeTab() {
+                document.getElementById('infoTab').style.display = 'none';
+            }
+    
+            function startGame() {
+                import('./js/main.js').then(module => {
+                    //module.startPhaserGame();
+                });
+            }
+    
+            window.closeTab = closeTab;
+        });
     </script>
+    
 </body>
 </html>
 
