@@ -1,4 +1,5 @@
 // animalService.js
+import { parseJwt } from './jwt.service';
 const BASE_URL = 'http://localhost:3000/animals';
 
 export const animalService = {
@@ -15,9 +16,16 @@ export const animalService = {
         }
     },
 
-    async getAnimalsByUser(id) {
+    async getAnimalsByUser() {
         try {
-            const response = await fetch(`${BASE_URL}/by-user/${id}`);
+            const accessToken = localStorage.getItem('accessToken');
+            if (!accessToken) {
+                throw new Error('Access token is not available in localStorage.');
+            }
+           
+            const payload = parseJwt(accessToken)
+
+            const response = await fetch(`${BASE_URL}/by-user/${payload.userId}`);
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }

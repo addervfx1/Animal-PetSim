@@ -1,5 +1,6 @@
 import { Animal } from 'src/game/animal/entities/animal.entity';
 import { Challenge } from 'src/game/challenge/entities/challenge.entity';
+import { Item } from 'src/game/item/entities/item.entity';
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, CreateDateColumn } from 'typeorm';
 
 @Entity('users')
@@ -18,6 +19,9 @@ export class User {
 
   @Column({ type: 'int', default: 0 })
   score: number;
+
+  @OneToMany(() => Item, (items) => items.user)
+  items: Item[]
 
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;
