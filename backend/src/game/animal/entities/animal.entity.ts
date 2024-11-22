@@ -26,6 +26,12 @@ export class Animal {
   @Column({ type: 'varchar', length: 255 })
   health: string;
 
+  @Column({ default: 50 })
+  happinessScore: number;
+
+  @Column({ default: 50 })
+  hungerScore: number;
+
   @Column({ type: 'int' })
   userId: number;
 

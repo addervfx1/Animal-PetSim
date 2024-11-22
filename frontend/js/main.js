@@ -65,7 +65,7 @@ class MainMenu extends Phaser.Scene {
     
     async loadAnimals() {
         try {
-            const result = await animalService.getAnimalsByUser(localStorage.getItem('userId')); 
+            const result = await animalService.getAnimalsByUser(); 
 
             if (result === null) {
                 this.startButton.setVisible(false);
