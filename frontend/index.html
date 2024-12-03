@@ -105,7 +105,6 @@
     <script type="module">
         const apiUrl = import.meta.env.VITE_ANIMAL_PETSIM_ENDPOINT;
 
-        // Navigation between screens
         document.getElementById('toRegisterLink').addEventListener('click', () => {
             document.getElementById('loginScreen').classList.remove('active');
             document.getElementById('registerScreen').classList.add('active');
@@ -116,7 +115,6 @@
             document.getElementById('loginScreen').classList.add('active');
         });
 
-        // Login functionality
         document.getElementById('loginButton').addEventListener('click', async () => {
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
@@ -140,7 +138,6 @@
             }
         });
 
-        // Registration functionality
         document.getElementById('registerButton').addEventListener('click', async () => {
             const name = document.getElementById('registerName').value;
             const email = document.getElementById('registerEmail').value;

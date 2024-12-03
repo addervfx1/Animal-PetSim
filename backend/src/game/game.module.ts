@@ -17,16 +17,21 @@ import { ChallengeService } from './challenge/challenge.service';
 import { ChallengeController } from './challenge/challenge.controller';
 import { ChallengeRepositoryService } from './challenge/challenge.repository.service';
 import { UserTokenGateway } from './user/gateways/userToken/userToken.gateway';
+import { ItemService } from './item/item.service';
+import { ItemRepositoryService } from './item/item.repository.service';
+import { ItemController } from './item/item.controller';
+import { Item } from './item/entities/item.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User, Animal, Activity, Challenge])
+    TypeOrmModule.forFeature([User, Animal, Activity, Challenge, Item])
   ],
   controllers: [
     UserController,
     AnimalController,
     ActivityController,
     ChallengeController,
+    ItemController
   ],
   providers: [
     UserService,
@@ -37,7 +42,9 @@ import { UserTokenGateway } from './user/gateways/userToken/userToken.gateway';
     ActivityRepositoryService,
     ChallengeService,
     ChallengeRepositoryService,
-    UserTokenGateway
+    UserTokenGateway,
+    ItemService,
+    ItemRepositoryService
   ],
   exports: [
     UserService,
