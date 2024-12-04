@@ -1,3 +1,148 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phaser Game</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: #000;
+        }
+        canvas {
+            display: block;
+        }
+        #loading {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(128, 128, 128, 0.5);
+            backdrop-filter: blur(5px);
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        #customPrompt {
+         position: fixed;
+         top: 50%;
+         left: 50%;
+         transform: translate(-50%, -50%);
+         background-color: #f9f9f9;
+         border: 2px solid #007bff;
+         border-radius: 15px;
+         padding: 20px;
+         z-index: 1000;
+         box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+         display: none;
+         text-align: center;
+        }
+
+        #closeDialog {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        #closeDialog:hover {
+            background-color: #0056b3;
+        }
+
+        .loginText {
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div id="loginScreen">
+        <h2 class="loginText">Login</h2>
+        <input type="text" id="email" placeholder="Email"><br><br>
+        <input type="password" id="password" placeholder="Password"><br><br>
+        <button id="loginButton">Entrar</button>
+    </div>
+
+    <div id="loading">
+        <div class="loader"></div>
+    </div>
+
+    <script type="module">
+        const accessToken = localStorage.getItem("accessToken");
+        const refreshToken = localStorage.getItem("refreshToken");
+        const userId = localStorage.getItem("userId");
+
+        if(accessToken | refreshToken)
+            document.getElementById('loginScreen').style.display = 'none';
+
+        document.getElementById('loginButton').addEventListener('click', async function() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                const loginResult = await fetch('http://localhost:3000/users/login', {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    method: "POST",
+                    body: JSON.stringify({ email, password }),
+                }).then(res => res.json());
+                
+                if (loginResult.accessToken && loginResult.refreshToken) {
+                    localStorage.setItem("accessToken", loginResult.accessToken);
+                    localStorage.setItem("refreshToken", loginResult.refreshToken);
+                    localStorage.setItem("userId", loginResult.userId);
+                    document.getElementById('loginScreen').style.display = 'none';
+                    startGame();
+                } else {
+                    alert('Credenciais inválidas!');
+                }
+            } catch (e) {
+                alert(`Ocorreu um erro inesperado, tente novamente mais tarde!`);
+            }
+        });
+
+        function startGame() {
+            import('./js/main.js').then(module => {
+            });
+        }
+    </script>
+</body>
+</html> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,15 +151,15 @@
     <title>Animal PetSim Login</title>
     <style>
         body, html {
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            background-image: url('assets/backgroundPetSimAnimal.jpg');
-            background-size: cover;
-            background-position: center;
-            font-family: Arial, sans-serif;
-        }
-        .screen {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-image: url('assets/backgroundPetSimAnimal.jpg');
+        background-size: cover;
+        background-position: center;
+        font-family: Arial, sans-serif;
+    }
+        #loginScreen {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -28,32 +173,24 @@
             border-radius: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             text-align: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.5s, visibility 0.5s;
-            width: 500px;
         }
-        .screen.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        h2 {
+        h2.loginText {
             color: #3498db;
             font-size: 24px;
             margin-bottom: 20px;
         }
-        input {
-            width: 90%;
+        #email, #password {
+            width: 80%;
             padding: 10px;
-            margin: 20px 0;
+            margin: 10px 0;
             border: 1px solid #ddd;
             border-radius: 10px;
             font-size: 16px;
             text-align: center;
         }
-        button {
+        #loginButton {
             width: 60%;
-            padding: 20px;
+            padding: 12px;
             font-size: 18px;
             font-weight: bold;
             color: white;
@@ -63,104 +200,130 @@
             cursor: pointer;
             transition: background-color 0.3s;
         }
-        button:hover {
+        #loginButton:hover {
             background-color: #2980b9;
         }
-        a {
-            color: #3498db;
-            cursor: pointer;
-            margin-top: 10px;
-            font-size: 14px;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        #logo {
+
+        #logo{
             width: 150px;
-            margin-bottom: 20px;
+            margin-bottom: 20px;    
+        }
+        #loading {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(128, 128, 128, 0.5);
+            backdrop-filter: blur(5px);
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 8px solid #f3f3f3;
+            border-top: 8px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
-    <div id="loginScreen" class="screen active">
+    <div id="loginScreen">
+        <!-- <h2 class="loginText">Bem-vindo ao Animal PetSim</h2> -->
+
         <img id="logo" src="assets/animalPetSim.png" alt="Animal PetSim Logo">
-        <h2>Bem-vindo ao Animal PetSim</h2>
-        <input type="text" id="email" placeholder="Email">
-        <input type="password" id="password" placeholder="Senha">
+        <input type="text" id="email" placeholder="Email"><br><br>
+        <input type="password" id="password" placeholder="Senha"><br><br>
         <button id="loginButton">Entrar</button>
-        <p>Ou</p>
-        <a id="toRegisterLink">Criar Conta</a>
     </div>
 
-    <div id="registerScreen" class="screen">
-        <img id="logo" src="assets/animalPetSim.png" alt="Animal PetSim Logo">
-        <h2>Criar Conta</h2>
-        <input type="text" id="registerName" placeholder="Nome">
-        <input type="text" id="registerEmail" placeholder="Email">
-        <input type="password" id="registerPassword" placeholder="Senha">
-        <button id="registerButton">Registrar</button>
-        <a id="toLoginLink">Voltar para Login</a>
+        <div id="infoTab" style="
+        display: none;
+        position: absolute;
+        top: 10%;
+        left: 10%;
+        width: 80%;
+        height: 80%;
+        background-color: white;
+        border-radius: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        overflow: auto;
+        z-index: 1000;
+        padding: 20px;">
+        <h2 id="tabTitle">Informações</h2>
+        <p id="tabContent">Aqui vão os detalhes sobre o animal.</p>
+        <button onclick="closeTab()" style="
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 10px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;">Fechar</button>
+    </div>
+
+    <div id="loading">
+        <div class="loader"></div>
     </div>
 
     <script type="module">
-        const apiUrl = import.meta.env.VITE_ANIMAL_PETSIM_ENDPOINT;
-
-        document.getElementById('toRegisterLink').addEventListener('click', () => {
-            document.getElementById('loginScreen').classList.remove('active');
-            document.getElementById('registerScreen').classList.add('active');
-        });
-
-        document.getElementById('toLoginLink').addEventListener('click', () => {
-            document.getElementById('registerScreen').classList.remove('active');
-            document.getElementById('loginScreen').classList.add('active');
-        });
-
-        document.getElementById('loginButton').addEventListener('click', async () => {
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-
-            try {
-                const response = await fetch(`${apiUrl}/users/login`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, password }),
-                });
-
-                const result = await response.json();
-                if (result.accessToken) {
-                    localStorage.setItem('accessToken', result.accessToken);
-                    alert('Login realizado com sucesso!');
-                } else {
-                    alert('Credenciais inválidas!');
+        document.addEventListener("DOMContentLoaded", function () {
+            const accessToken = localStorage.getItem("accessToken");
+            const refreshToken = localStorage.getItem("refreshToken");
+    
+            if (!accessToken || !refreshToken)
+                document.getElementById('loginScreen').style.display = 'none';
+    
+            document.getElementById('loginButton').addEventListener('click', async function () {
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+    
+                try {
+                    const loginResult = await fetch('http://localhost:3000/users/login', {
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        method: "POST",
+                        body: JSON.stringify({ email, password }),
+                    }).then(res => res.json());
+    
+                    if (loginResult.accessToken && loginResult.refreshToken) {
+                        localStorage.setItem("accessToken", loginResult.accessToken);
+                        localStorage.setItem("refreshToken", loginResult.refreshToken);
+                        document.getElementById('loginScreen').style.display = 'none';
+                        startGame();
+                    } else {
+                        alert('Credenciais inválidas!');
+                    }
+                } catch (e) {
+                    alert(`Ocorreu um erro inesperado, tente novamente mais tarde!`);
                 }
-            } catch (error) {
-                alert('Erro ao realizar login. Tente novamente mais tarde.');
+            });
+    
+            function closeTab() {
+                document.getElementById('infoTab').style.display = 'none';
             }
-        });
-
-        document.getElementById('registerButton').addEventListener('click', async () => {
-            const name = document.getElementById('registerName').value;
-            const email = document.getElementById('registerEmail').value;
-            const password = document.getElementById('registerPassword').value;
-
-            try {
-                const response = await fetch(`${apiUrl}/users/register`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ name, email, password }),
+    
+            function startGame() {
+                import('./js/main.js').then(module => {
+                    //module.startPhaserGame();
                 });
-
-                const result = await response.json();
-                if (result.success) {
-                    alert('Conta criada com sucesso!');
-                    document.getElementById('toLoginLink').click();
-                } else {
-                    alert(result.message || 'Erro ao criar conta.');
-                }
-            } catch (error) {
-                alert('Erro ao criar conta. Tente novamente mais tarde.');
             }
+    
+            window.closeTab = closeTab;
         });
     </script>
+    
 </body>
 </html>
+
