@@ -5,7 +5,7 @@
 
 RODAR NO BANCO AO INICIAR:
 
-SELECT cron.schedule(
+```SELECT cron.schedule(
   'adjust_scores_every_5_minutes',  -- Nome da tarefa
   '*/5 * * * *',                   -- Agendamento no formato cron (a cada 5 minutos)
   $$UPDATE animals
@@ -14,7 +14,7 @@ SELECT cron.schedule(
   "hungerScore" = GREATEST("hungerScore" - 5, 0),
   "hygieneScore" = GREATEST("hygieneScore" - 5, 0)$$
 );
-
+```
 
 CREATE OR REPLACE FUNCTION update_user_score()
 RETURNS TRIGGER AS $$
