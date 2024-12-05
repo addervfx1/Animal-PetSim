@@ -16,7 +16,7 @@ RODAR NO BANCO AO INICIAR:
 );
 ```
 
-CREATE OR REPLACE FUNCTION update_user_score()
+```CREATE OR REPLACE FUNCTION update_user_score()
 RETURNS TRIGGER AS $$
 BEGIN
     -- Calcular a média dos três scores diretamente da tabela animals
@@ -30,11 +30,12 @@ BEGIN
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
+```
 
+```
 CREATE TRIGGER update_user_score_trigger
 AFTER UPDATE ON animals
 FOR EACH ROW
 EXECUTE FUNCTION update_user_score();
-
-
+```
 
