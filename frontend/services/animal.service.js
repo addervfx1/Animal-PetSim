@@ -63,6 +63,69 @@ export const animalService = {
             throw error;
         }
     },
+
+    async updateHappiness(happiness, animalId) {
+        try {
+            const response = await fetch(`${BASE_URL}/${animalId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({happinessScore: happiness }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to update the animal');
+            }
+
+            return await response.json();
+        } catch (error) {
+            console.error('Error updating animal:', error);
+            throw error;
+        }
+    },
+    
+    async updateHunger(hunger, animalId) {
+        try {
+            const response = await fetch(`${BASE_URL}/${animalId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({hungerScore: hunger}),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to update the animal');
+            }
+
+            return await response.json();
+        } catch (error) {
+            console.error('Error updating animal:', error);
+            throw error;
+        }
+    },
+
+    async updateHygiene(hygiene, animalId) {
+        try {
+            const response = await fetch(`${BASE_URL}/${animalId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({hygieneScore: hygiene}),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to update the animal');
+            }
+
+            return await response.json();
+        } catch (error) {
+            console.error('Error updating animal:', error);
+            throw error;
+        }
+    },
 };
 
 

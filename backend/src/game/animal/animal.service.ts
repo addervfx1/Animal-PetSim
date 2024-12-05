@@ -25,6 +25,20 @@ export class AnimalService {
   }
 
   async update(id: number, animal: UpdateAnimalDto): Promise<Animal> {
+    const foundAnimal = await this.animalRepositoryService.findOne(id);
+
+    if(animal.hungerScore){
+      animal.hungerScore += foundAnimal.hungerScore;
+    }
+
+    if(animal.happinessScore){
+      animal.happinessScore += foundAnimal.happinessScore;
+    }
+
+    if(animal.hygieneScore){
+      animal.hygieneScore += foundAnimal.hygieneScore;
+    }
+
     return await this.animalRepositoryService.update(id, animal);
   }
 

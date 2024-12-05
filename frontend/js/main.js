@@ -425,20 +425,45 @@ class GameScene extends Phaser.Scene {
         const iconSpacing = 100;
 
         
-        this.foodButton = this.add.image(width / 2 - iconSpacing, height - 50, 'foodIcon').setInteractive().setScale(0.2);;
-        this.foodButton.on('pointerdown', () => {
-        this.openTab('Alimentação', 'O animal está sendo alimentado. Certifique-se de manter a dieta equilibrada.');
-});
-
+        let foodButtonCooldown = false;
+        let bathButtonCooldown = false;
+        let toyButtonCooldown = false;
+        
+        this.foodButton = this.add.image(width / 2 - iconSpacing, height - 50, 'foodIcon').setInteractive().setScale(0.2);
+        this.foodButton.on('pointerdown', async () => {
+            if (foodButtonCooldown) return; // Se o cooldown estiver ativo, ignore o clique
+            foodButtonCooldown = true; // Ativa o cooldown
+            this.openTab('Alimentação', 'O animal está sendo alimentado. Certifique-se de manter a dieta equilibrada.');
+            await animalService.updateHunger(20, this.animalData.id);
+        
+            setTimeout(() => {
+                foodButtonCooldown = false;
+            }, 180000);
+        });
+        
         this.bathButton = this.add.image(width / 2, height - 50, 'bathIcon').setInteractive().setScale(0.2);
-        this.bathButton.on('pointerdown', () => {
-        this.openTab('Higiene', 'O banho do animal está sendo preparado. Lembre-se de usar produtos adequados.');
-});
-
+        this.bathButton.on('pointerdown', async () => {
+            if (bathButtonCooldown) return; // Se o cooldown estiver ativo, ignore o clique
+            bathButtonCooldown = true; // Ativa o cooldown
+            this.openTab('Higiene', 'O banho do animal está sendo preparado. Lembre-se de usar produtos adequados.');
+            await animalService.updateHygiene(20, this.animalData.id);
+        
+            setTimeout(() => {
+                bathButtonCooldown = false;
+            }, 180000); 
+        });
+        
         this.toyButton = this.add.image(width / 2 + iconSpacing, height - 50, 'toyIcon').setInteractive();
-        this.toyButton.on('pointerdown', () => {
-        this.openTab('Brincadeiras', 'O animal adora brincar! Escolha um brinquedo para mantê-lo feliz.');
-});
+        this.toyButton.on('pointerdown', async () => {
+            if (toyButtonCooldown) return;
+            toyButtonCooldown = true; 
+            this.openTab('Brincadeiras', 'O animal começou a brincar! Assim ele poderá ficar feliz.');
+            await animalService.updateHappiness(20, this.animalData.id);
+        
+            setTimeout(() => {
+                toyButtonCooldown = false;
+            }, 180000);
+        });
     
 
         this.healthText = this.add.text(10, 10, '', { 

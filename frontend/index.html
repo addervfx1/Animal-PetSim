@@ -250,8 +250,8 @@
         position: absolute;
         top: 10%;
         left: 10%;
-        width: 80%;
-        height: 80%;
+        width: 20%;
+        height: 20%;
         background-color: white;
         border-radius: 20px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -300,6 +300,7 @@
                     if (loginResult.accessToken && loginResult.refreshToken) {
                         localStorage.setItem("accessToken", loginResult.accessToken);
                         localStorage.setItem("refreshToken", loginResult.refreshToken);
+                        localStorage.setItem("userId", loginResult.userId);
                         document.getElementById('loginScreen').style.display = 'none';
                         startGame();
                     } else {

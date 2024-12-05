@@ -3,6 +3,7 @@ import { UpdateItemDto } from './dto/update-item-dto';
 import { ItemService } from './item.service';
 import { Item } from './entities/item.entity';
 import { CreateItemDto } from './dto/create-item-dto';
+import { ItemType } from './enum/itemType.enum';
 
 @Controller('item')
 export class ItemController {
@@ -17,6 +18,11 @@ export class ItemController {
   async findOneByUser(@Param('id') id: number): Promise<Item> {
   return await this.itemService.findOneByUser(id);
 }
+
+  @Get('by-type/:type')
+  async findAllByType(@Param('type') type: ItemType): Promise<Item[]> {
+   return await this.itemService.findAllByType(type);
+  }
   
   @Get(':id')
   async findOne(@Param('id') id: number): Promise<Item> {
