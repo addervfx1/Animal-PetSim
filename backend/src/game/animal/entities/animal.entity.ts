@@ -32,6 +32,9 @@ export class Animal {
   @Column({ default: 50 })
   hungerScore: number;
 
+  @Column({ default: 50 })
+  hygieneScore: number;
+
   @Column({ type: 'int' })
   userId: number;
 

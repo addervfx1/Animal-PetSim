@@ -3,6 +3,7 @@ import { UpdateItemDto } from './dto/update-item-dto';
 import { ItemRepositoryService } from './item.repository.service';
 import { Item } from './entities/item.entity';
 import { CreateItemDto } from './dto/create-item-dto';
+import { ItemType } from './enum/itemType.enum';
 
 @Injectable()
 export class ItemService {
@@ -18,6 +19,10 @@ export class ItemService {
   
   async findOneByUser(id: number): Promise<Item> {
     return await this.itemRepositoryService.findOneByUser(id);
+  }
+
+  async findAllByType(type: ItemType): Promise<Item[]> {
+    return await this.itemRepositoryService.findAllByType(type);
   }
 
   async create(item: CreateItemDto): Promise<Item> {

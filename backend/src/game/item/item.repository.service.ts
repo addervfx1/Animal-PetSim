@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { Item } from './entities/item.entity';
 import { CreateItemDto } from './dto/create-item-dto';
 import { UpdateItemDto } from './dto/update-item-dto';
+import { ItemType } from './enum/itemType.enum';
 
 @Injectable()
 export class ItemRepositoryService {
@@ -28,6 +29,17 @@ export class ItemRepositoryService {
 
     return Item || null;
 }
+
+  async findAllByType(type: ItemType): Promise<Item[] | null> {
+    const items = await this.itemRepository.find({
+      where: {
+        tipo: type    
+      },
+      relations: ['user'],
+    });
+
+    return items.length > 0 ? items : null;
+  }
 
   async create(Item: CreateItemDto): Promise<Item> {
     return await this.itemRepository.save(Item);
