@@ -1,4 +1,3 @@
-// animalService.js
 import { parseJwt } from './jwt.service';
 const BASE_URL = 'http://localhost:3000/animals';
 
