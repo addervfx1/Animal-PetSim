@@ -1,6 +1,7 @@
 # Animal PetSim
  An educational game that teaches you and tell if you're a good pet owner
 
+[AnimalPetSim.docx](https://github.com/user-attachments/files/18083442/AnimalPetSim.docx)
 
 
 RODAR NO BANCO AO INICIAR:
